@@ -23,11 +23,6 @@ namespace Our.Umbraco.Extensions.Routing.Helpers
 
             var domainsAndUris = domains.Select(x => new DomainAndUri(x, uri));
 
-            if (domainsAndUris.Any() == false)
-            {
-                return null;
-            }
-
             var uriWithSlash = uri.EndPathWithSlash();
 
             var baseDomains = GetBaseDomains(domainsAndUris, uriWithSlash);
