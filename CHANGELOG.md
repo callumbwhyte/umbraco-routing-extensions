@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.0.0] - 2019-12-03
+## [1.0.0] - 2020-02-01
 ### Added
 * Initial release of Routing Extensions for Umbraco 8.1
 
