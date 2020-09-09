@@ -1,5 +1,8 @@
-﻿using System.Web.Routing;
+using System;
+using System.Web.Routing;
+
 using Our.Umbraco.Extensions.Routing.Helpers;
+using Umbraco.Core;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -23,7 +26,25 @@ namespace Our.Umbraco.Extensions.Routing
 
             if (domain == null)
             {
-                return null;
+                var forwardedHost = requestContext.HttpContext.Request.Headers.Get("X-Forwarded-Host");
+                var isHttps = requestContext.HttpContext.Request.Headers.Get("X-Forwarded-Proto")
+                    .InvariantEquals("HTTPS");
+
+
+                var forwardedUriString = isHttps ? "https" : "http";
+                forwardedUriString += $"://{forwardedHost}";
+
+                if (!string.IsNullOrWhiteSpace(forwardedHost) && Uri.TryCreate(
+                    forwardedUriString,
+                    UriKind.Absolute,
+                    out var forwardedUri))
+                {
+                    domain = DomainHelper.GetDomainByUri(umbracoContext, forwardedUri);
+                }
+                else
+                {
+                    return null;
+                }
             }
 
             var content = DomainHelper.GetContentByDomain(umbracoContext, domain);
