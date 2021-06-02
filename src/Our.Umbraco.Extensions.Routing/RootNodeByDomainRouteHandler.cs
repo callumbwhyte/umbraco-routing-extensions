@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Web.Routing;
 
 using Our.Umbraco.Extensions.Routing.Helpers;
@@ -29,7 +30,6 @@ namespace Our.Umbraco.Extensions.Routing
                 var forwardedHost = requestContext.HttpContext.Request.Headers.Get("X-Forwarded-Host");
                 var isHttps = requestContext.HttpContext.Request.Headers.Get("X-Forwarded-Proto")
                     .InvariantEquals("HTTPS");
-
 
                 var forwardedUriString = isHttps ? "https" : "http";
                 forwardedUriString += $"://{forwardedHost}";
