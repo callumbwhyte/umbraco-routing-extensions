@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Web.Routing;
 
 using Our.Umbraco.Extensions.Routing.Helpers;
@@ -30,7 +31,6 @@ namespace Our.Umbraco.Extensions.Routing
                 var isHttps = requestContext.HttpContext.Request.Headers.Get("X-Forwarded-Proto")
                     .InvariantEquals("HTTPS");
 
-
                 var forwardedUriString = isHttps ? "https" : "http";
                 forwardedUriString += $"://{forwardedHost}";
 
@@ -43,7 +43,8 @@ namespace Our.Umbraco.Extensions.Routing
                 }
                 else
                 {
-                    return null;
+                    // No domains are configured, use the first root node which can be found
+                    return _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext.Content.GetAtRoot().FirstOrDefault();
                 }
             }
 
