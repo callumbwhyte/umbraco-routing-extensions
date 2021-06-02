@@ -43,7 +43,8 @@ namespace Our.Umbraco.Extensions.Routing
                 }
                 else
                 {
-                    return null;
+                    // No domains are configured, use the first root node which can be found
+                    return _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext.Content.GetAtRoot().FirstOrDefault();
                 }
             }
 
