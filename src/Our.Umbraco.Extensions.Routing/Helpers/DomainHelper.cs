@@ -8,16 +8,16 @@ using Umbraco.Web.Routing;
 
 namespace Our.Umbraco.Extensions.Routing.Helpers
 {
-    public static class DomainHelper
+    public class DomainHelper
     {
-        public static Domain GetDomainByUri(UmbracoContext umbracoContext, Uri uri)
+        public Domain GetDomainByUri(UmbracoContext umbracoContext, Uri uri)
         {
             var baseDomains = GetDomainsByUri(umbracoContext, uri);
 
             return baseDomains.FirstOrDefault();
         }
 
-        public static IEnumerable<Domain> GetDomainsByUri(UmbracoContext umbracoContext, Uri uri)
+        public IEnumerable<Domain> GetDomainsByUri(UmbracoContext umbracoContext, Uri uri)
         {
             var domains = umbracoContext.Domains.GetAll(false);
 
@@ -35,21 +35,19 @@ namespace Our.Umbraco.Extensions.Routing.Helpers
             return baseDomains;
         }
 
-        private static IEnumerable<DomainAndUri> GetBaseDomains(IEnumerable<DomainAndUri> domainsAndUris, Uri uri)
+        private IEnumerable<DomainAndUri> GetBaseDomains(IEnumerable<DomainAndUri> domainsAndUris, Uri uri)
         {
             return domainsAndUris.Where(x => x.Uri.EndPathWithSlash().IsBaseOf(uri) == true);
         }
 
-        public static IPublishedContent GetContentByDomain(UmbracoContext umbracoContext, Domain domain)
+        public IPublishedContent GetContentByDomain(UmbracoContext umbracoContext, Domain domain)
         {
             if (domain.ContentId < 1)
             {
                 return null;
             }
 
-            var content = umbracoContext.Content.GetById(domain.ContentId);
-
-            return content;
+            return umbracoContext.Content.GetById(domain.ContentId);
         }
     }
 }

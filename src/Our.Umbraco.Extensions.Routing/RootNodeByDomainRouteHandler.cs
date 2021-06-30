@@ -9,18 +9,20 @@ namespace Our.Umbraco.Extensions.Routing
 {
     public class RootNodeByDomainRouteHandler : UmbracoVirtualNodeRouteHandler
     {
-        private readonly IUmbracoContextFactory _umbracoContextFactory;
+        private readonly DomainHelper _domainHelper;
+        private readonly IUmbracoContextFactory _contextFactory;
 
-        public RootNodeByDomainRouteHandler(IUmbracoContextFactory umbracoContextFactory)
+        public RootNodeByDomainRouteHandler(DomainHelper domainHelper, IUmbracoContextFactory contextFactory)
         {
-            _umbracoContextFactory = umbracoContextFactory;
+            _domainHelper = domainHelper;
+            _contextFactory = contextFactory;
         }
 
         protected override IPublishedContent FindContent(RequestContext requestContext, UmbracoContext umbracoContext)
         {
             var url = requestContext.HttpContext.Request.UrlOrForwarded();
 
-            var domain = DomainHelper.GetDomainByUri(umbracoContext, requestUri);
+            var domain = _domainHelper.GetDomainByUri(umbracoContext, url);
 
             if (domain == null)
             {
@@ -28,14 +30,7 @@ namespace Our.Umbraco.Extensions.Routing
                 return _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext.Content.GetAtRoot().FirstOrDefault();
             }
 
-            var content = DomainHelper.GetContentByDomain(umbracoContext, domain);
-
-            if (content == null)
-            {
-                return content;
-            }
-
-            return content;
+            return _domainHelper.GetContentByDomain(umbracoContext, domain);
         }
 
         protected override UmbracoContext GetUmbracoContext(RequestContext requestContext)
@@ -44,7 +39,7 @@ namespace Our.Umbraco.Extensions.Routing
 
             if (umbracoContext == null)
             {
-                var contextReference = _umbracoContextFactory.EnsureUmbracoContext(requestContext.HttpContext);
+                var contextReference = _contextFactory.EnsureUmbracoContext(requestContext.HttpContext);
 
                 return contextReference.UmbracoContext;
             }
