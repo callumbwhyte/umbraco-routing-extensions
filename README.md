@@ -2,11 +2,11 @@
 
 <img src="docs/img/logo.png?raw=true" alt="Umbraco Routing Extensions" width="250" align="right" />
 
-[![NuGet release](https://img.shields.io/nuget/v/Our.Umbraco.Extensions.Routing.svg)](https://www.nuget.org/packages/Our.Umbraco.Extensions.Routing/)
+[![NuGet](https://img.shields.io/nuget/v/Our.Umbraco.Extensions.Routing.svg)](https://www.nuget.org/packages/Our.Umbraco.Extensions.Routing/)
 
 ## Getting started
 
-This package is supported on Umbraco 8.1+.
+Routing Extensions is supported on Umbraco 8.1+.
 
 ### Installation
 
@@ -28,10 +28,15 @@ This project is maintained by [Callum Whyte](https://callumwhyte.com/) and contr
 
 ## Credits
 
-The package logo uses the [Route](https://thenounproject.com/term/search/641107/) icon from the [Noun Project](https://thenounproject.com) by [Viktor Ostrovsky](https://thenounproject.com/vostrovsky/), licensed under [CC BY 3.0 US](https://creativecommons.org/licenses/by/3.0/us/).
+The logo uses the [Route](https://thenounproject.com/term/route/641107/) icon from the [Noun Project](https://thenounproject.com) by [Viktor Ostrovsky](https://thenounproject.com/vostrovsky/), licensed under [CC BY 3.0 US](https://creativecommons.org/licenses/by/3.0/us/).
+
+### A special #h5yr to our contributors
+
+* [Matthew Wise](https://github.com/Matthew-Wise)
+* [Damiaan Peeters](https://github.com/dampee)
 
 ## License
 
-Copyright &copy; 2019 [Callum Whyte](https://callumwhyte.com/), and other contributors
+Copyright &copy; 2021 [Callum Whyte](https://callumwhyte.com/), and other contributors
 
 Licensed under the [MIT License](LICENSE.md).
