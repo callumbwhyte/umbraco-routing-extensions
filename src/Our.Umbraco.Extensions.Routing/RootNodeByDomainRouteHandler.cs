@@ -26,8 +26,9 @@ namespace Our.Umbraco.Extensions.Routing
 
             if (domain == null)
             {
-                // No domains are configured, use the first root node which can be found
-                return _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext.Content.GetAtRoot().FirstOrDefault();
+                var rootContent = umbracoContext.Content.GetAtRoot();
+
+                return rootContent.FirstOrDefault();
             }
 
             return _domainHelper.GetContentByDomain(umbracoContext, domain);
