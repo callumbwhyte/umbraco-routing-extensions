@@ -1,9 +1,6 @@
-using System;
 using System.Linq;
 using System.Web.Routing;
-
 using Our.Umbraco.Extensions.Routing.Helpers;
-using Umbraco.Core;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -21,31 +18,14 @@ namespace Our.Umbraco.Extensions.Routing
 
         protected override IPublishedContent FindContent(RequestContext requestContext, UmbracoContext umbracoContext)
         {
-            var requestUri = requestContext.HttpContext.Request.Url;
+            var url = requestContext.HttpContext.Request.UrlOrForwarded();
 
             var domain = DomainHelper.GetDomainByUri(umbracoContext, requestUri);
 
             if (domain == null)
             {
-                var forwardedHost = requestContext.HttpContext.Request.Headers.Get("X-Forwarded-Host");
-                var isHttps = requestContext.HttpContext.Request.Headers.Get("X-Forwarded-Proto")
-                    .InvariantEquals("HTTPS");
-
-                var forwardedUriString = isHttps ? "https" : "http";
-                forwardedUriString += $"://{forwardedHost}";
-
-                if (!string.IsNullOrWhiteSpace(forwardedHost) && Uri.TryCreate(
-                    forwardedUriString,
-                    UriKind.Absolute,
-                    out var forwardedUri))
-                {
-                    domain = DomainHelper.GetDomainByUri(umbracoContext, forwardedUri);
-                }
-                else
-                {
-                    // No domains are configured, use the first root node which can be found
-                    return _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext.Content.GetAtRoot().FirstOrDefault();
-                }
+                // No domains are configured, use the first root node which can be found
+                return _umbracoContextFactory.EnsureUmbracoContext().UmbracoContext.Content.GetAtRoot().FirstOrDefault();
             }
 
             var content = DomainHelper.GetContentByDomain(umbracoContext, domain);
