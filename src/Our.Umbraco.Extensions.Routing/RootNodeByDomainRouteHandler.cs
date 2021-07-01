@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Web.Routing;
 using Our.Umbraco.Extensions.Routing.Helpers;
+using Umbraco.Core;
+using Umbraco.Core.Composing;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -11,6 +13,12 @@ namespace Our.Umbraco.Extensions.Routing
     {
         private readonly DomainHelper _domainHelper;
         private readonly IUmbracoContextFactory _contextFactory;
+
+        public RootNodeByDomainRouteHandler(IUmbracoContextFactory contextFactory)
+        {
+            _domainHelper = Current.Factory.GetInstance<DomainHelper>();
+            _contextFactory = contextFactory;
+        }
 
         public RootNodeByDomainRouteHandler(DomainHelper domainHelper, IUmbracoContextFactory contextFactory)
         {
