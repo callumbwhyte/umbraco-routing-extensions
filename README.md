@@ -34,9 +34,10 @@ The logo uses the [Route](https://thenounproject.com/term/route/641107/) icon fr
 
 * [Matthew Wise](https://github.com/Matthew-Wise)
 * [Damiaan Peeters](https://github.com/dampee)
+* [Ronald Barendse](https://github.com/ronaldbarendse)
 
 ## License
 
-Copyright &copy; 2021 [Callum Whyte](https://callumwhyte.com/), and other contributors
+Copyright &copy; 2022 [Callum Whyte](https://callumwhyte.com/), and other contributors
 
 Licensed under the [MIT License](LICENSE.md).
